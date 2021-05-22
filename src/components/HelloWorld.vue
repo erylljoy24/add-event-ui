@@ -8,24 +8,24 @@
           <form v-on:submit.prevent="addEvent">
             <label for="calendar" class="form-label">Event</label>
             <div>
-              <input id="calendar" type="text" class="input-group" v-model="form.title">
+              <input id="calendar" type="text" class="input-group" v-model="form.event_name">
             </div>
             <div class="row form-margin">
               <div class="col-md-6">
                 <label for="start-date" class="form-label">From</label>
                 <div>
-                  <input id="start-date" type="date" class="input-group" v-model="form.start">
+                  <input id="start-date" type="date" class="input-group" v-model="form.start_date">
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="end-date" class="form-label">To</label>
                 <div>
-                  <input id="end-date" type="date" class="input-group" v-model="form.end">
+                  <input id="end-date" type="date" class="input-group" v-model="form.end_date">
                 </div>
               </div>
             </div>
             <div class="form-margin">
-              <label class="checkbox-inline">
+              <label class="checkbox-inline" style="padding-left: 0;">
                 <input type="checkbox" id="mon" v-model="form.days_selected" :value="1">Mon
               </label>
               <label class="checkbox-inline">
@@ -93,9 +93,9 @@
 
 
               form: {
-                title: '',
-                start: '',
-                end: '',
+                event_name: '',
+                start_date: '',
+                end_date: '',
                 days_selected: []
               }
           }
@@ -106,9 +106,9 @@
         .then((response) => {
           this.events = response.data.events.map((item) => {
             return {
-              title: item.title,
-              start: item.start,
-              end: item.end,
+              title: item.event_name,
+              start: item.start_date,
+              end: item.end_date,
               categoryId: item.categoryId
             }
           })
@@ -125,9 +125,9 @@
               .then((response) => {
                 this.events = response.data.events.map((item) => {
                   return {
-                    title: item.title,
-                    start: item.start,
-                    end: item.end,
+                    title: item.event_name,
+                    start: item.start_date,
+                    end: item.end_date,
                     categoryId: item.categoryId
                   }
                 })
