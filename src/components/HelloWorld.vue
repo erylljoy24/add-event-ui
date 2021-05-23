@@ -144,9 +144,10 @@
               this.$refs.calendar.goToday()
           },
           addEvent(){
-            console.log(this.form)
+            
             axios.post('http://127.0.0.1:8000/api/event/add', this.form)
               .then((response) => {
+                console.log(response)
                 this.events = response.data.events.map((item) => {
                   return {
                     title: item.event_name,
@@ -155,7 +156,12 @@
                     categoryId: item.categoryId
                   }
                 })
-                window.location.reload()
+                this.events_btns.push({
+                  title: response.data.single_event.event_name,
+                  start: response.data.single_event.start_date,
+                  end: response.data.single_event.end_date,
+                  categoryId: response.data.single_event.categoryId
+                })
               })
               .catch(error => {
                 console.log(error)
