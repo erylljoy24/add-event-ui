@@ -156,11 +156,12 @@
                     categoryId: item.categoryId
                   }
                 })
+                
                 this.events_btns.push({
                   title: response.data.single_event.event_name,
                   start: response.data.single_event.start_date,
                   end: response.data.single_event.end_date,
-                  categoryId: response.data.single_event.categoryId
+                  categoryId: 1
                 })
               })
               .catch(error => {
