@@ -81,7 +81,6 @@
 </template>
 
 <script>
-    // import Datepicker from 'vuejs-datepicker';
     import { Calendar } from 'vue-sweet-calendar'
     import 'vue-sweet-calendar/dist/SweetCalendar.css'
     import axios from 'axios';
@@ -92,8 +91,6 @@
         msg: String
       },
       components: {
-          // Datepicker
-          // FunctionalCalendar
           Calendar
       },
       data() {
