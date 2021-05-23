@@ -47,8 +47,26 @@
                 <input type="checkbox" id="sun" v-model="form.days_selected" :value="7">Sun
               </label>
             </div>
-            <button type="submit" class="btn btn-success form-margin">Save</button>
+            <div class="row">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-success form-margin">Save</button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" @click="viewAllSchedule" class="btn btn-success form-margin">View all</button>
+              </div>
+            </div>
+            
+            <div style="margin-top:20px">
+              <h4>Select event to view</h4>
+              <div v-for="events_btn in events_btns" :key="events_btn.title">
+                <button type="button" @click="selectEvent(events_btn.title, events_btn.start, events_btn.end, events_btn.categoryId)" class="btn btn-success form-margin">
+                  {{ events_btn.title }}
+                </button>
+              </div>
+            </div>
           </form>
+
+          
         </div>
       </div>
       <div class="col-md-8">
@@ -88,10 +106,8 @@
                       backgroundColor: 'Blue'
                   }
               ],
-              events: [
-              ],
-
-
+              events: [],
+              events_btns: [],
               form: {
                 event_name: '',
                 start_date: '',
@@ -102,9 +118,18 @@
       },
       mounted () {
         axios
-        .get('https://add-event-laravel.herokuapp.com/api/events/all')
+        .get('http://127.0.0.1:8000/api/events/all')
         .then((response) => {
           this.events = response.data.events.map((item) => {
+            return {
+              title: item.event_name,
+              start: item.start_date,
+              end: item.end_date,
+              categoryId: item.categoryId
+            }
+          })
+
+          this.events_btns = response.data.events.map((item) => {
             return {
               title: item.event_name,
               start: item.start_date,
@@ -118,10 +143,9 @@
           goToday() {
               this.$refs.calendar.goToday()
           },
-
           addEvent(){
             console.log(this.form)
-            axios.post('https://add-event-laravel.herokuapp.com/api/event/add', this.form)
+            axios.post('http://127.0.0.1:8000/api/event/add', this.form)
               .then((response) => {
                 this.events = response.data.events.map((item) => {
                   return {
@@ -131,10 +155,24 @@
                     categoryId: item.categoryId
                   }
                 })
+                window.location.reload()
               })
               .catch(error => {
                 console.log(error)
               })
+          },
+          selectEvent(event_name, start_date, end_date, categoryId){
+             this.events = [
+                {
+                  title: event_name,
+                  start: start_date,
+                  end: end_date,
+                  categoryId: categoryId
+                }
+             ]
+          },
+          viewAllSchedule(){
+             this.events = this.events_btns
           }
       }
     }
