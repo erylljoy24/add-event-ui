@@ -102,7 +102,7 @@
       },
       mounted () {
         axios
-        .get('http://127.0.0.1:8000/api/events/all')
+        .get('https://add-event-laravel.herokuapp.com/api/events/all')
         .then((response) => {
           this.events = response.data.events.map((item) => {
             return {
@@ -121,7 +121,7 @@
 
           addEvent(){
             console.log(this.form)
-            axios.post('http://127.0.0.1:8000/api/event/add', this.form)
+            axios.post('https://add-event-laravel.herokuapp.com/api/event/add', this.form)
               .then((response) => {
                 this.events = response.data.events.map((item) => {
                   return {
