@@ -24,7 +24,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-margin">
+            <div class="form-margin" style="display:none">
               <label class="checkbox-inline" style="padding-left: 0;">
                 <input type="checkbox" id="mon" v-model="form.days_selected" :value="1">Mon
               </label>
@@ -156,7 +156,7 @@
                     categoryId: item.categoryId
                   }
                 })
-                
+
                 this.events_btns.push({
                   title: response.data.single_event.event_name,
                   start: response.data.single_event.start_date,
